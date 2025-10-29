@@ -13,21 +13,17 @@ import { useFHECounterWagmi } from "~~/hooks/fhecounter-example/useFHECounterWag
  *  - "Decrement" button: allows you to decrement the FHECounter count handle using FHE operations.
  */
 export const FHECounterDemo = () => {
-  const { isConnected, chain } = useAccount();
-
-  const chainId = chain?.id;
+  const { isConnected } = useAccount();
 
   //////////////////////////////////////////////////////////////////////////////
   // FHEVM instance
   //////////////////////////////////////////////////////////////////////////////
 
-  // Create EIP-1193 provider from wagmi for FHEVM
-  const provider = useMemo(() => {
-    if (typeof window === "undefined") return undefined;
-
-    // Get the wallet provider from window.ethereum
-    return (window as any).ethereum;
-  }, []);
+  // Temporarily disabled for deployment
+  // const provider = useMemo(() => {
+  //   if (typeof window === "undefined") return undefined;
+  //   return (window as any).ethereum;
+  // }, []);
 
   const initialMockChains = { 31337: "http://localhost:8545" };
 

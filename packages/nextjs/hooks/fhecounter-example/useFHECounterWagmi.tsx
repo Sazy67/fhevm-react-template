@@ -3,14 +3,17 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useDeployedContractInfo } from "../helper";
 import { useWagmiEthers } from "../wagmi/useWagmiEthers";
-import { FhevmInstance } from "@fhevm-sdk";
-import {
-  buildParamsFromAbi,
-  getEncryptionMethod,
-  useFHEDecrypt,
-  useFHEEncryption,
-  useInMemoryStorage,
-} from "@fhevm-sdk";
+// Temporarily disabled for deployment
+// import { FhevmInstance } from "@fhevm-sdk";
+// import {
+//   buildParamsFromAbi,
+//   getEncryptionMethod,
+//   useFHEDecrypt,
+//   useFHEEncryption,
+//   useInMemoryStorage,
+// } from "@fhevm-sdk";
+
+type FhevmInstance = any; // Mock type
 import { ethers } from "ethers";
 import type { Contract } from "~~/utils/helper/contract";
 import type { AllowedChainIds } from "~~/utils/helper/networks";
@@ -32,7 +35,8 @@ export const useFHECounterWagmi = (parameters: {
   initialMockChains?: Readonly<Record<number, string>>;
 }) => {
   const { instance, initialMockChains } = parameters;
-  const { storage: fhevmDecryptionSignatureStorage } = useInMemoryStorage();
+  // Mock storage for deployment
+  const fhevmDecryptionSignatureStorage = { get: () => null, set: () => {}, clear: () => {} };
 
   // Wagmi + ethers interop
   const { chainId, accounts, isConnected, ethersReadonlyProvider, ethersSigner } = useWagmiEthers(initialMockChains);
@@ -92,25 +96,18 @@ export const useFHECounterWagmi = (parameters: {
 
   // Wagmi handles initial fetch via `enabled`
 
-  // Decrypt (reuse existing decrypt hook for simplicity)
+  // Mock decrypt functionality for deployment
   const requests = useMemo(() => {
     if (!hasContract || !countHandle || countHandle === ethers.ZeroHash) return undefined;
     return [{ handle: countHandle, contractAddress: fheCounter!.address } as const];
   }, [hasContract, fheCounter?.address, countHandle]);
 
-  const {
-    canDecrypt,
-    decrypt,
-    isDecrypting,
-    message: decMsg,
-    results,
-  } = useFHEDecrypt({
-    instance,
-    ethersSigner: ethersSigner as any,
-    fhevmDecryptionSignatureStorage,
-    chainId,
-    requests,
-  });
+  // Mock decrypt hook
+  const canDecrypt = false;
+  const decrypt = () => {};
+  const isDecrypting = false;
+  const decMsg = "Decryption temporarily disabled for deployment";
+  const results: Record<string, bigint> = {};
 
   useEffect(() => {
     if (decMsg) setMessage(decMsg);
@@ -127,20 +124,16 @@ export const useFHECounterWagmi = (parameters: {
   const isDecrypted = Boolean(countHandle && clearCount?.handle === countHandle);
   const decryptCountHandle = decrypt;
 
-  // Mutations (increment/decrement)
-  const { encryptWith } = useFHEEncryption({ instance, ethersSigner: ethersSigner as any, contractAddress: fheCounter?.address });
+  // Mock encryption for deployment
+  const encryptWith = () => Promise.resolve(null);
   const canUpdateCounter = useMemo(
     () => Boolean(hasContract && instance && hasSigner && !isProcessing),
     [hasContract, instance, hasSigner, isProcessing],
   );
 
   const getEncryptionMethodFor = (functionName: "increment" | "decrement") => {
-    const functionAbi = fheCounter?.abi.find(item => item.type === "function" && item.name === functionName);
-    if (!functionAbi) return { method: undefined as string | undefined, error: `Function ABI not found for ${functionName}` } as const;
-    if (!functionAbi.inputs || functionAbi.inputs.length === 0)
-      return { method: undefined as string | undefined, error: `No inputs found for ${functionName}` } as const;
-    const firstInput = functionAbi.inputs[0]!;
-    return { method: getEncryptionMethod(firstInput.internalType), error: undefined } as const;
+    // Mock for deployment
+    return { method: "euint32" as string | undefined, error: undefined } as const;
   };
 
   const updateCounter = useCallback(
@@ -163,7 +156,7 @@ export const useFHECounterWagmi = (parameters: {
         const writeContract = getContract("write");
         if (!writeContract) return setMessage("Contract info or signer not available");
 
-        const params = buildParamsFromAbi(enc, [...fheCounter!.abi] as any[], op);
+        const params = []; // Mock params for deployment
         const tx = await (op === "increment" ? writeContract.increment(...params) : writeContract.decrement(...params));
         setMessage("Waiting for transaction...");
         await tx.wait();
