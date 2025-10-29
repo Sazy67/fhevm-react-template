@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { useFhevm } from "@fhevm-sdk";
+// import { useFhevm } from "@fhevm-sdk"; // Temporarily disabled for deployment
 import { useAccount } from "wagmi";
 import { RainbowKitCustomConnectButton } from "~~/components/helper/RainbowKitCustomConnectButton";
 import { useFHECounterWagmi } from "~~/hooks/fhecounter-example/useFHECounterWagmi";
@@ -31,16 +31,10 @@ export const FHECounterDemo = () => {
 
   const initialMockChains = { 31337: "http://localhost:8545" };
 
-  const {
-    instance: fhevmInstance,
-    status: fhevmStatus,
-    error: fhevmError,
-  } = useFhevm({
-    provider,
-    chainId,
-    initialMockChains,
-    enabled: true, // use enabled to dynamically create the instance on-demand
-  });
+  // Temporary mock for deployment
+  const fhevmInstance = null;
+  const fhevmStatus = "disconnected";
+  const fhevmError = "SDK temporarily disabled for deployment";
 
   //////////////////////////////////////////////////////////////////////////////
   // useFHECounter is a custom hook containing all the FHECounter logic, including
