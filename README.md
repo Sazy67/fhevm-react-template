@@ -2,6 +2,8 @@
 
 A minimal React frontend template for building FHEVM-enabled decentralized applications (dApps). This template provides a simple development interface for interacting with FHEVM smart contracts, specifically the `FHECounter.sol` contract.
 
+> **Note**: This repository also includes the **Universal FHEVM SDK** - a framework-agnostic frontend toolkit that helps developers run confidential dApps with ease. See [Universal SDK Documentation](packages/fhevm-sdk/UNIVERSAL_SDK_README.md) for details.
+
 ## 🚀 What is FHEVM?
 
 FHEVM (Fully Homomorphic Encryption Virtual Machine) enables computation on encrypted data directly on Ethereum. This template demonstrates how to build dApps that can perform computations while keeping data private.
@@ -14,6 +16,9 @@ FHEVM (Fully Homomorphic Encryption Virtual Machine) enables computation on encr
 - **🔗 RainbowKit**: Seamless wallet connection and management
 - **🌐 Multi-Network Support**: Works on both Sepolia testnet and local Hardhat node
 - **📦 Monorepo Structure**: Organized packages for SDK, contracts, and frontend
+- **🔄 Universal SDK**: Framework-agnostic toolkit for React, Vue, Node.js, and vanilla JS
+- **🔧 CLI Tool**: Command-line interface for quick project setup and management
+- **🧩 Reusable Components**: Pre-built UI components for encryption/decryption flows
 
 ## 📋 Prerequinextjss
 
@@ -39,6 +44,20 @@ git submodule update --init --recursive
 # Install dependencies
 pnpm install
 ```
+
+### Universal SDK Quick Start
+
+The repository includes the Universal FHEVM SDK, which can be used in any JavaScript environment:
+
+```bash
+# Install the SDK
+npm install @fhevm-sdk
+
+# Or use the CLI tool directly
+npx @fhevm-sdk init --name my-fhevm-app --framework react
+```
+
+See [Universal SDK Documentation](packages/fhevm-sdk/UNIVERSAL_SDK_README.md) for complete usage instructions.
 
 ### 2. Environment Configuration
 
@@ -127,10 +146,21 @@ This template uses a monorepo structure with three main packages:
 fhevm-react-template/
 ├── packages/
 │   ├── fhevm-hardhat-template/    # Smart contracts & deployment
-│   ├── fhevm-sdk/                 # FHEVM SDK package
+│   ├── fhevm-sdk/                 # FHEVM SDK package (includes Universal SDK)
 │   └── nextjs/                      # React frontend application
 └── scripts/                       # Build and deployment scripts
 ```
+
+### Universal FHEVM SDK
+
+The `fhevm-sdk` package now includes the **Universal FHEVM SDK**, a framework-agnostic toolkit that works with:
+
+- React applications
+- Vue.js applications
+- Node.js servers
+- Vanilla JavaScript projects
+
+See [Universal SDK Documentation](packages/fhevm-sdk/UNIVERSAL_SDK_README.md) for complete details.
 
 ### Key Components
 
@@ -156,6 +186,12 @@ fhevm-react-template/
 - [FHEVM Hardhat Guide](https://docs.zama.ai/protocol/solidity-guides/development-guide/hardhat) - Hardhat integration
 - [Relayer SDK Documentation](https://docs.zama.ai/protocol/relayer-sdk-guides/) - SDK reference
 - [Environment Setup](https://docs.zama.ai/protocol/solidity-guides/getting-started/setup#set-up-the-hardhat-configuration-variables-optional) - MNEMONIC & API keys
+
+### Universal FHEVM SDK
+- [Universal SDK Documentation](packages/fhevm-sdk/UNIVERSAL_SDK_README.md) - Complete framework-agnostic SDK guide
+- [Getting Started Guide](packages/fhevm-sdk/GETTING_STARTED.md) - Quick setup instructions
+- [CLI Usage](packages/fhevm-sdk/CLI_USAGE.md) - Command-line interface guide
+- [API Reference](packages/fhevm-sdk/UNIVERSAL_SDK_README.md#api-reference) - Detailed API documentation
 
 ### Development Tools
 - [MetaMask + Hardhat Setup](https://docs.metamask.io/wallet/how-to/run-devnet/) - Local development

@@ -91,15 +91,22 @@ export const FHECounterDemo = () => {
   if (!isConnected) {
     return (
       <div className="max-w-6xl mx-auto p-6 text-gray-900">
-        <div className="flex items-center justify-center">
-          <div className="bg-white bordershadow-xl p-8 text-center">
-            <div className="mb-4">
-              <span className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-amber-900/30 text-amber-400 text-3xl">
-                ⚠️
-              </span>
+        <div className="flex items-center justify-center min-h-[400px]">
+          <div className="bg-white rounded-xl shadow-xl p-8 text-center border border-gray-200 max-w-md">
+            <div className="mb-6">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 text-white text-3xl mb-4">
+                🔗
+              </div>
             </div>
-            <h2 className="text-2xl font-extrabold text-gray-900 mb-2">Wallet not connected</h2>
-            <p className="text-gray-700 mb-6">Connect your wallet to use the FHE Counter demo.</p>
+            <h2 className="text-2xl font-bold text-gray-900 mb-3">Connect Your Wallet</h2>
+            <p className="text-gray-600 mb-6 leading-relaxed">
+              Connect your wallet to start exploring the power of Fully Homomorphic Encryption on blockchain.
+            </p>
+            <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-4 rounded-lg mb-6 border border-blue-200">
+              <p className="text-sm text-gray-700">
+                🔐 Experience privacy-preserving computations with FHEVM
+              </p>
+            </div>
             <div className="flex items-center justify-center">
               <RainbowKitCustomConnectButton />
             </div>
@@ -112,9 +119,23 @@ export const FHECounterDemo = () => {
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-6 text-gray-900">
       {/* Header */}
-      <div className="text-center mb-8 text-black">
-        <h1 className="text-3xl font-bold mb-2">FHE Counter Demo</h1>
-        <p className="text-gray-600">Interact with the Fully Homomorphic Encryption Counter contract</p>
+      <div className="text-center mb-8">
+        <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+          <div className="flex items-center justify-center mb-4">
+            <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-3 rounded-full">
+              <span className="text-2xl">🔐</span>
+            </div>
+          </div>
+          <h1 className="text-3xl font-bold mb-3 text-gray-900">FHE Counter Demo</h1>
+          <p className="text-gray-600 text-lg mb-4">
+            Interact with the Fully Homomorphic Encryption Counter contract
+          </p>
+          <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-4 rounded-lg border border-blue-200">
+            <p className="text-sm text-gray-700">
+              🚀 This demo showcases encrypted computations on blockchain using FHEVM technology
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* Count Handle Display */}

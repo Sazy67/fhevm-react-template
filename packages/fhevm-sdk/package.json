@@ -26,6 +26,30 @@
     "./react": {
       "types": "./src/react/index.ts",
       "default": "./dist/react/index.js"
+    },
+    "./universal": {
+      "types": "./src/universal/index.ts",
+      "default": "./dist/universal/index.js"
+    },
+    "./universal/core": {
+      "types": "./src/universal/core/index.ts",
+      "default": "./dist/universal/core/index.js"
+    },
+    "./universal/storage": {
+      "types": "./src/universal/storage/index.ts",
+      "default": "./dist/universal/storage/index.js"
+    },
+    "./universal/utils": {
+      "types": "./src/universal/utils/index.ts",
+      "default": "./dist/universal/utils/index.js"
+    },
+    "./universal/react": {
+      "types": "./src/universal/adapters/react/index.ts",
+      "default": "./dist/universal/adapters/react/index.js"
+    },
+    "./universal/vue": {
+      "types": "./src/universal/adapters/vue/index.ts",
+      "default": "./dist/universal/adapters/vue/index.js"
     }
   },
   "scripts": {
@@ -33,10 +57,15 @@
     "watch": "tsc -p tsconfig.json --watch",
     "clean": "rm -rf dist",
     "test": "vitest run --coverage",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "cli": "node dist/cli/index.js"
+  },
+  "bin": {
+    "fhevm-sdk": "dist/cli/index.js"
   },
   "dependencies": {
-    "idb": "^8.0.3"
+    "idb": "^8.0.3",
+    "commander": "^12.1.0"
   },
   "peerDependencies": {
     "@fhevm/mock-utils": "^0.1.0",

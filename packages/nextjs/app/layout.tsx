@@ -5,8 +5,8 @@ import "~~/styles/globals.css";
 import { getMetadata } from "~~/utils/helper/getMetadata";
 
 export const metadata = getMetadata({
-  title: "Zama Template",
-  description: "Built with FHEVM",
+  title: "FHEVM React Template - Suat AYAZ",
+  description: "Fully Homomorphic Encryption on Ethereum - Built with FHEVM by Suat AYAZ (@suatayaz_)",
 });
 
 const DappWrapper = ({ children }: { children: React.ReactNode }) => {

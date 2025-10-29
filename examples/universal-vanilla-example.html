@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal FHEVM SDK Vanilla JS Example</title>
+</head>
+<body>
+    <h1>Universal FHEVM SDK Vanilla JS Example</h1>
+    
+    <div id="status">
+        <h2>FHEVM Status</h2>
+        <p>Status: <span id="status-text">Loading...</span></p>
+        <p id="error-message" style="color: red;"></p>
+    </div>
+    
+    <div id="encryption">
+        <h2>Encryption</h2>
+        <input type="number" id="input-value" placeholder="Enter a number to encrypt" disabled />
+        <button id="encrypt-button" disabled>Encrypt</button>
+        <div id="encrypted-result"></div>
+    </div>
+    
+    <div id="decryption">
+        <h2>Decryption</h2>
+        <button id="decrypt-button" disabled>Decrypt</button>
+        <div id="decrypted-result"></div>
+    </div>
+
+    <!-- In a real application, you would import the SDK -->
+    <!-- <script src="../dist/universal/index.js"></script> -->
+    <script>
+        // This is a mock example since we can't actually import the SDK in this context
+        document.addEventListener('DOMContentLoaded', async () => {
+            const statusText = document.getElementById('status-text');
+            const errorMessage = document.getElementById('error-message');
+            const inputValue = document.getElementById('input-value');
+            const encryptButton = document.getElementById('encrypt-button');
+            const encryptedResult = document.getElementById('encrypted-result');
+            const decryptButton = document.getElementById('decrypt-button');
+            const decryptedResult = document.getElementById('decrypted-result');
+            
+            // Mock FHEVM instance
+            const mockInstance = {
+                encryptUInt32: async (value) => {
+                    return { type: 'encrypted', value, handle: `encrypted_${value}` };
+                },
+                decrypt: async (handle, userAddress, provider) => {
+                    return handle.value || 42;
+                }
+            };
+            
+            // Update UI to show ready state
+            statusText.textContent = 'Ready';
+            inputValue.disabled = false;
+            encryptButton.disabled = false;
+            
+            // Encryption handler
+            encryptButton.addEventListener('click', async () => {
+                if (!inputValue.value) return;
+                
+                try {
+                    const handle = await mockInstance.encryptUInt32(Number(inputValue.value));
+                    encryptedResult.innerHTML = `<p>Encrypted Handle: ${JSON.stringify(handle)}</p>`;
+                    decryptButton.disabled = false;
+                } catch (err) {
+                    errorMessage.textContent = `Encryption failed: ${err.message}`;
+                }
+            });
+            
+            // Decryption handler
+            decryptButton.addEventListener('click', async () => {
+                try {
+                    const value = await mockInstance.decrypt({ value: Number(inputValue.value) }, "0xUserAddress", window.ethereum);
+                    decryptedResult.innerHTML = `<p>Decrypted Value: ${value}</p>`;
+                } catch (err) {
+                    errorMessage.textContent = `Decryption failed: ${err.message}`;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
